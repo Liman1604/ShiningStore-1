@@ -120,10 +120,10 @@ const Navbar = () => {
             </Box>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Link to="/cart" className="ms-2 px-3 py-2">
+            <Link to="#" className="ms-2 px-3 py-2">
               <img src={search} alt="" />
             </Link>
-            <Link to="/cart">
+            <Link to="#">
               <img src={userInfo} alt="" />
             </Link>
             <Link to="/cart">

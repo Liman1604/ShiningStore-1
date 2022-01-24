@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
 import { Card } from "react-bootstrap";
+import { ClientContext } from "../contexts/ClientProvider";
 
 const ProductCard = (props) => {
+  const { addProductToCart } = useContext(ClientContext);
   return (
     <>
       <div className="products">
@@ -51,6 +53,7 @@ const ProductCard = (props) => {
               className="card_button"
               color="warning"
               variant="contained"
+              onClick={() => addProductToCart(props.item)}
               startIcon={<ShoppingCart />}
             >
               Add To Cart

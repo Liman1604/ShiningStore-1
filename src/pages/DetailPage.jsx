@@ -1,7 +1,9 @@
 import { ShoppingCart } from "@mui/icons-material";
+import CallMissedOutgoingOutlinedIcon from "@mui/icons-material/CallMissedOutgoingOutlined";
 import { Button } from "@mui/material";
 import React, { useContext, useEffect } from "react";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import SliderDetails from "../components/SliderDetails";
 import { ClientContext } from "../contexts/ClientProvider";
 
 const DetailPage = () => {
@@ -11,7 +13,6 @@ const DetailPage = () => {
     getDetail(params.id);
   }, []);
 
-  console.log(details);
   if (!details) {
     return <h2>Loading...</h2>;
   }
@@ -21,6 +22,7 @@ const DetailPage = () => {
         <div className="row py-4">
           <div className="col-md-6">
             <img src={details.images} alt="" height="400" width="400" />
+            <SliderDetails />
           </div>
           <div className="col-md-6">
             <h4 className="text-uppercase text-black-50">{details.name}</h4>
@@ -39,9 +41,15 @@ const DetailPage = () => {
                 Add To Cart
               </Button>
             </Link>
-            <NavLink to="/cart" className="btn btn-dark ms-2 px-3 py-2">
-              Go to Cart
-            </NavLink>
+            <Link to="/cart">
+              <Button
+                color="warning"
+                variant="contained"
+                startIcon={<CallMissedOutgoingOutlinedIcon />}
+              >
+                Go to Cart
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

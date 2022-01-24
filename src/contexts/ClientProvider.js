@@ -37,6 +37,30 @@ const ClientProvider = (props) => {
 
   // ! CART
 
+  const addProductToCart = (product) => {
+    // let cart = JSON.parse(localStorage.getItem("cart"));
+    // if (!cart) {
+    //   cart = {
+    //     products: [],
+    //     totalPrice: 0,
+    //   };
+    // }
+    // let productCart = {
+    //   product: product,
+    //   count: 1,
+    //   subPrice: product.price,
+    // };
+    // cart.products.push(productCart);
+    // cart.totalPrice = cart.products.reduce((prev, item) => {
+    //   return prev + item.subPrice;
+    // }, 0);
+    // localStorage.setItem("cart", JSON.stringify(cart));
+    // let action = {
+    //   type: "ADD_PRODUCT_TO_CART",
+    //   payload: cart.products.length,
+    // };
+    // dispatch(action);
+  };
   // ! Detail Page
 
   const getDetail = async (id) => {
@@ -56,6 +80,7 @@ const ClientProvider = (props) => {
       value={{
         getProducts,
         getDetail,
+        addProductToCart,
         products: state.products,
         details: state.details,
       }}
