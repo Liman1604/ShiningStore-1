@@ -1,7 +1,9 @@
 import { Container, Grid } from "@mui/material";
 import React, { useContext, useEffect } from "react";
+import Filters from "../components/Filters";
 import ProductCard from "../components/ProductCard";
 import { ClientContext } from "../contexts/ClientProvider";
+import "./Home.css";
 
 const HomePage = () => {
   const { getProducts, products } = useContext(ClientContext);
@@ -23,16 +25,22 @@ const HomePage = () => {
           />
         </video>
       </div>
-      <Container>
-        <h2>Home Page</h2>
-        <Grid container spacing={4}>
+      <div className="home">
+        <Filters />
+        <div className="productContainer">
+          {products.map((item) => (
+            <ProductCard item={item} key={item.id} />
+          ))}
+        </div>
+      </div>
+
+      {/* <Grid container spacing={4}>
           {products.map((item) => (
             <Grid xs={12} sm={6} md={3} item key={item.id}>
               <ProductCard item={item} />
             </Grid>
           ))}
-        </Grid>
-      </Container>
+        </Grid> */}
     </div>
   );
 };

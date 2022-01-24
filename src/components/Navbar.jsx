@@ -12,6 +12,11 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
+import cart from "../images/cart.png";
+import userInfo from "../images/user-info.png";
+import search from "../images/search.png";
+import { Badge } from "@mui/material";
+import { ShoppingCart } from "@mui/icons-material";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -113,6 +118,21 @@ const Navbar = () => {
                 </Button>
               </Link>
             </Box>
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <Link to="/cart" className="ms-2 px-3 py-2">
+              <img src={search} alt="" />
+            </Link>
+            <Link to="/cart">
+              <img src={userInfo} alt="" />
+            </Link>
+            <Link to="/cart">
+              <IconButton color="warning" size="large">
+                <Badge color="success" badgeContent={1}>
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+            </Link>
           </Box>
         </Toolbar>
       </Container>

@@ -1,35 +1,63 @@
 import React from "react";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import { Button } from "@mui/material";
-import { BackSide, Flippy, FrontSide } from "react-flippy";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "@mui/icons-material";
+import { Card } from "react-bootstrap";
 
 const ProductCard = (props) => {
-  console.log(props.item.images);
   return (
     <>
-      <Flippy flipOnHover={false} flipOnHover={true} flipDirection="horizontal">
-        <FrontSide animationDuration="1000">
-          <CardMedia
-            component="img"
-            height="140"
-            image={props.item.images[0]}
-            alt="green iguana"
-          />
-        </FrontSide>
-        <BackSide animationDuration="1000">{props.item.name}</BackSide>
-        <Link to="/">
-          <Button
-            color="warning"
-            variant="contained"
-            startIcon={<ShoppingCart />}
-          >
-            Add To Cart
-          </Button>
-        </Link>
-      </Flippy>
+      <div className="products">
+        <Card className="product_card my-4">
+          <div className="image-block">
+            <Card.Img
+              className="backside_image card_image"
+              variant="top"
+              src={props.item.images[0]}
+              alt="product-img"
+            />
+            <Link to={`/product-detail/${props.item.id}`}>
+              <img
+                alt="product-img"
+                className="frontside_image card_image"
+                src={props.item.images[1]}
+              />
+            </Link>
+          </div>
+          <Card.Body>
+            <Card.Title>{props.item.category}</Card.Title>
+            <Card.Subtitle>
+              {/* <Rating rating={props.item.rating} /> */}
+              <span
+                style={{
+                  marginTop: 200,
+                  display: "block",
+                  width: "100%",
+                }}
+              >
+                {props.item.description}
+              </span>
+              <div
+                style={{
+                  display: "inline-block",
+                  width: "100%",
+                  textAlign: "center",
+                }}
+              >
+                {`$ ${props.item.price}`}
+              </div>
+            </Card.Subtitle>
+            <Button
+              className="card_button"
+              color="warning"
+              variant="contained"
+              startIcon={<ShoppingCart />}
+            >
+              Add To Cart
+            </Button>
+          </Card.Body>
+        </Card>
+      </div>
     </>
   );
 };
