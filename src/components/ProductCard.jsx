@@ -6,7 +6,8 @@ import { Card } from "react-bootstrap";
 import { ClientContext } from "../contexts/ClientProvider";
 
 const ProductCard = (props) => {
-  const { addProductToCart } = useContext(ClientContext);
+  const { addProductToCart, checkProductInCart, deleteProductFromCart } =
+    useContext(ClientContext);
   return (
     <>
       <div className="products">
@@ -49,15 +50,26 @@ const ProductCard = (props) => {
                 {`$ ${props.item.price}`}
               </div>
             </Card.Subtitle>
-            <Button
-              className="card_button"
-              color="warning"
-              variant="contained"
-              onClick={() => addProductToCart(props.item)}
-              startIcon={<ShoppingCart />}
-            >
-              Add To Cart
-            </Button>
+            {checkProductInCart(props.item.id) ? (
+              <Button
+                className="card_button"
+                color="warning"
+                variant="contained"
+                onClick={() => deleteProductFromCart(props.item.id)}
+                startIcon={<ShoppingCart />}
+              >
+                In The Cart
+              </Button>
+            ) : (
+              <Button
+                className="card_button"
+                variant="contained"
+                onClick={() => addProductToCart(props.item)}
+                startIcon={<ShoppingCart />}
+              >
+                Add To Cart
+              </Button>
+            )}
           </Card.Body>
         </Card>
       </div>

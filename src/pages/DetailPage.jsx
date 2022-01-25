@@ -7,7 +7,13 @@ import SliderDetails from "../components/SliderDetails";
 import { ClientContext } from "../contexts/ClientProvider";
 
 const DetailPage = () => {
-  const { getDetail, details } = useContext(ClientContext);
+  const {
+    getDetail,
+    details,
+    addProductToCart,
+    deleteProductFromCart,
+    checkProductInCart,
+  } = useContext(ClientContext);
   const params = useParams();
   useEffect(() => {
     getDetail(params.id);
@@ -32,15 +38,26 @@ const DetailPage = () => {
               <i className="fa fa-star"></i>
             </p>
             <h3 className="display-6 fw-bold my-4">${details.price}</h3>
-            <Link to="/cart">
+
+            {checkProductInCart(details.id) ? (
               <Button
                 color="warning"
                 variant="contained"
+                // sx={{ opacity: 1 }}
+                onClick={() => deleteProductFromCart(details.id)}
+                startIcon={<ShoppingCart />}
+              >
+                In The Cart
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                onClick={() => addProductToCart(details)}
                 startIcon={<ShoppingCart />}
               >
                 Add To Cart
               </Button>
-            </Link>
+            )}
             <Link to="/cart">
               <Button
                 color="warning"

@@ -7,21 +7,20 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
-import cart from "../images/cart.png";
 import userInfo from "../images/user-info.png";
-import search from "../images/search.png";
 import { Badge } from "@mui/material";
-import { ShoppingCart } from "@mui/icons-material";
+import { Search, ShoppingCart } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { ClientContext } from "../contexts/ClientProvider";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
+  const { cartCount, getProducts } = React.useContext(ClientContext);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -38,6 +37,16 @@ const Navbar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const search = new URLSearchParams(window.location.search);
+  const [searchValue, setSearchValue] = React.useState(search.get("q") || "");
+  const navigate = useNavigate();
+  const filterProdusts = (key, value) => {
+    search.set(key, value);
+    let newPath = `${window.location.pathname}?${search.toString()}`;
+    navigate(newPath);
+    setSearchValue(search.get("q") || "");
+    getProducts();
   };
 
   return (
@@ -120,15 +129,24 @@ const Navbar = () => {
             </Box>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Link to="#" className="ms-2 px-3 py-2">
-              <img src={search} alt="" />
-            </Link>
-            <Link to="#">
+            <div className="search-box">
+              <input
+                value={searchValue}
+                onChange={(e) => filterProdusts("q", e.target.value)}
+                className="search-input"
+                type="text"
+                placeholder="Search jewerly..."
+              />
+              <Link to="#" className="search-btn">
+                <Search />
+              </Link>
+            </div>
+            <Link to="/authorization">
               <img src={userInfo} alt="" />
             </Link>
             <Link to="/cart">
               <IconButton color="warning" size="large">
-                <Badge color="success" badgeContent={1}>
+                <Badge color="success" badgeContent={cartCount}>
                   <ShoppingCart />
                 </Badge>
               </IconButton>
