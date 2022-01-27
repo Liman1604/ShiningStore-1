@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import Home from "./Home";
+// import { useNavigate } from "react-router-dom";
+import { userAuthContext } from "../contexts/UserAuthContext";
 import { Navigate } from "react-router-dom";
-import { useUserAuth } from "../context/UserAuthContext";
-const ProtectedRoute = ({ children }) => {
-  const { user } = useUserAuth();
 
-  console.log("Check user in Private: ", user);
+const ProtectedRoute = ({ children }) => {
+  // let user = useUserAuth();
+  const { user } = useContext(userAuthContext);
   if (!user) {
     return <Navigate to="/" />;
   }
-  return children;
+  return <Home />;
 };
 
 export default ProtectedRoute;

@@ -175,6 +175,11 @@ const ClientProvider = (props) => {
       return prev + item.subPrice;
     }, 0);
     localStorage.setItem("cart", JSON.stringify(cart));
+    let action = {
+      type: "DELETE_PRODUCT_FROM_CART",
+      payload: cart.products.length,
+    };
+    dispatch(action);
     getCart();
   };
   // ! Detail Page
@@ -190,6 +195,7 @@ const ClientProvider = (props) => {
       console.log(error);
     }
   };
+
   return (
     <ClientContext.Provider
       value={{

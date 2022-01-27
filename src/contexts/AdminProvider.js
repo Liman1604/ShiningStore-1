@@ -54,7 +54,7 @@ const AdminProvider = (props) => {
         getProducts();
         toast.success("Успешно удалено!");
       } else {
-        alert(`ok we won't delete it `);
+        alert("ok we won't delete it ");
         return;
       }
     } catch (error) {
@@ -78,7 +78,7 @@ const AdminProvider = (props) => {
 
   const saveEditedProduct = async (jewerly) => {
     try {
-      await axios.patch(`${API}/${jewerly.id}`, jewerly);
+      await axios.patch(`${API}/${jewerly.id}, jewerly`);
       getProducts();
       toast.success("Изменения сохранены");
     } catch (error) {

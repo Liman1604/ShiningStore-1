@@ -63,7 +63,7 @@ export default function AdminTable() {
               </TableCell>
               <TableCell align="right">{item.description}</TableCell>
               <TableCell align="right">{item.price}</TableCell>
-              <TableCell align="right">
+              <TableCell colSpan={1} align="right">
                 <img src={item.images[0]} width={80} alt={item.name} />
                 <img src={item.images[1]} width={80} alt={item.name} />
                 <img src={item.images[2]} width={80} alt={item.name} />

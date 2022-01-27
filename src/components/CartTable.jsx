@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import { ClientContext } from "../contexts/ClientProvider";
 import { TableFooter, Button } from "@mui/material";
 import { Delete } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 export default function CartTable() {
   const { getCart, cart, changeCount, deleteCart } =
@@ -20,7 +21,6 @@ export default function CartTable() {
   if (!cart) {
     return <h2>Loading...</h2>;
   }
-  // console.log(cart.products);
   return (
     <>
       <TableContainer component={Paper} className="my-5">
@@ -86,7 +86,9 @@ export default function CartTable() {
         </Table>
       </TableContainer>
       <div className="order-button">
-        <Button variant="contained">Оформить заказ</Button>
+        <Link to="/form-sale">
+          <Button variant="contained">Оформить заказ</Button>
+        </Link>
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,11 +10,11 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
-import userInfo from "../images/user-info.png";
-import { Badge } from "@mui/material";
+import { Avatar, Badge } from "@mui/material";
 import { Search, ShoppingCart } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { ClientContext } from "../contexts/ClientProvider";
+import { userAuthContext, useUserAuth } from "../contexts/UserAuthContext";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -47,6 +47,15 @@ const Navbar = () => {
     navigate(newPath);
     setSearchValue(search.get("q") || "");
     getProducts();
+  };
+  const { user, logOut, unsubscribe, setError } = useUserAuth();
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      unsubscribe();
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   return (
@@ -141,9 +150,6 @@ const Navbar = () => {
                 <Search />
               </Link>
             </div>
-            <Link to="/authorization">
-              <img src={userInfo} alt="" />
-            </Link>
             <Link to="/cart">
               <IconButton color="warning" size="large">
                 <Badge color="success" badgeContent={cartCount}>
@@ -151,6 +157,33 @@ const Navbar = () => {
                 </Badge>
               </IconButton>
             </Link>
+            {user ? (
+              <>
+                <IconButton size="small" color="inherit">
+                  {user.displayName}
+                </IconButton>
+                <IconButton sx={{ p: 0 }}>
+                  <Avatar alt={user.displayName} src={user.photoURL} />
+                </IconButton>
+                <IconButton onClick={handleLogout} size="large" color="inherit">
+                  Log out
+                </IconButton>
+              </>
+            ) : (
+              <Link to="/login" size="small" color="inherit">
+                Login
+              </Link>
+            )}
+            {/* {user ? (
+              <div>
+                <span>{user && user.email}</span>
+                <Button variant="primary" onClick={handleLogout}>
+                  Log out
+                </Button>
+              </div>
+            ) : (
+              <Link to="/login">Login</Link>
+            )} */}
           </Box>
         </Toolbar>
       </Container>

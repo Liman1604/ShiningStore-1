@@ -1,4 +1,3 @@
-import { Container, Grid } from "@mui/material";
 import React, { useContext, useEffect } from "react";
 import Filters from "../components/Filters";
 import ProductCard from "../components/ProductCard";
@@ -35,14 +34,6 @@ const HomePage = () => {
         </div>
       </div>
       <ProductsPagination />
-
-      {/* <Grid container spacing={4}>
-          {products.map((item) => (
-            <Grid xs={12} sm={6} md={3} item key={item.id}>
-              <ProductCard item={item} />
-            </Grid>
-          ))}
-        </Grid> */}
     </div>
   );
 };
